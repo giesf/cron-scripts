@@ -18,7 +18,7 @@ const vercel = axios.create({
 })
 
 const ifconfig = axios.create({
-    baseURL: "https://ifconfig.co",
+    baseURL: "https://api.ipify.org/",
     httpAgent: agent
 })
 
@@ -45,7 +45,7 @@ async function deleteVercelDNSRecord(record: VercelDNSRecord) {
 }
 
 async function getPublicIP() {
-    const res = await ifconfig.get("/ip")
+    const res = await ifconfig.get("/")
     const { data } = res;
 
     return data.replace("\n", "") as string;
