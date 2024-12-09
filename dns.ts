@@ -1,20 +1,25 @@
 import axios, { AxiosError } from "axios";
 import type { VercelDNSRecord, VercelDNSRecordCreationDTO } from "./vercel.types";
-
+import { Agent } from 'http'
 const VERCEL_TOKEN = Bun.env.VERCEL_TOKEN
 const DOMAIN = Bun.env.VERCEL_DOMAIN
 const TEAM_SLUG = Bun.env.VERCEL_TEAM_SLUG
+
+const agent = new Agent({ family: 4 });
+
 
 const vercel = axios.create({
     baseURL: "https://api.vercel.com",
     headers: {
         Authorization: "Bearer " + VERCEL_TOKEN,
         "Content-Type": "application/json"
-    }
+    },
+    httpAgent: agent
 })
 
 const ifconfig = axios.create({
-    baseURL: "https://ifconfig.co"
+    baseURL: "https://ifconfig.co",
+    httpAgent: agent
 })
 
 
